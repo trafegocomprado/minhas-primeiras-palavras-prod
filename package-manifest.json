@@ -1,0 +1,21 @@
+{
+  "product": "Minhas Primeiras Palavras com Deus",
+  "slug": "minhas-primeiras-palavras",
+  "paradigm": "mainstream",
+  "type": "github-cloudflare-pages",
+  "public_dir": "public",
+  "entry": "public/index.html",
+  "cloudflare": {
+    "framework_preset": "None / Static HTML",
+    "build_command": "",
+    "build_output_directory": "public",
+    "root_directory": "/"
+  },
+  "pending_placeholders": [
+    "link de checkout (#checkout)",
+    "imagem hero / mockup (assets/images/og-cover.webp para OG)",
+    "3 depoimentos reais",
+    "foto + bio Teacher Sandra",
+    "META_PIXEL_ID, GA4_ID"
+  ]
+}
