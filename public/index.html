@@ -214,7 +214,7 @@ fbq('init','1379844697288228');fbq('track','PageView');fbq('track','ViewContent'
         <h1>Minhas Primeiras Palavras com&nbsp;Deus</h1>
         <p class="sub">O primeiro inglês do seu filho pode vir da Palavra de Deus. Sem telas, e mesmo que você não fale o&nbsp;idioma.</p>
         <div class="hero-cta-row">
-          <a class="btn btn-lg" href="https://pay.hotmart.com/V106748066F?off=vd4oylpx" data-cta data-cta-primary>Quero começar hoje por R$&nbsp;67</a>
+          <a class="btn btn-lg" href="#recebe" data-cta-primary>Quero começar hoje por R$&nbsp;67</a>
           <span class="hero-note">Pagamento único · 7 dias de garantia</span>
         </div>
       </div>
@@ -256,7 +256,7 @@ fbq('init','1379844697288228');fbq('track','PageView');fbq('track','ViewContent'
 <hr class="rainbow">
 
 <!-- ===== 3. O QUE VOCÊ RECEBE ===== -->
-<section class="cream2-bg">
+<section class="cream2-bg" id="recebe">
   <div class="wrap">
     <div class="center">
       <div class="kicker">O que você recebe</div>
@@ -372,7 +372,7 @@ fbq('init','1379844697288228');fbq('track','PageView');fbq('track','ViewContent'
 </footer>
 
 <!-- sticky mobile cta -->
-<div id="sticky"><a href="https://pay.hotmart.com/V106748066F?off=vd4oylpx" data-cta>Quero começar — R$ 67</a></div>
+<div id="sticky"><a href="#recebe">Quero começar — R$ 67</a></div>
 
 <script>
 (function(){
@@ -388,31 +388,50 @@ fbq('init','1379844697288228');fbq('track','PageView');fbq('track','ViewContent'
     });
   });
 
-  // Sticky mobile CTA via IntersectionObserver
+  // Sticky mobile CTA: aparece quando o hero sai da tela
   var hero = document.getElementById('hero');
   var sticky = document.getElementById('sticky');
   if(hero && sticky && 'IntersectionObserver' in window){
-    var obs = new IntersectionObserver(function(entries){
+    new IntersectionObserver(function(entries){
       entries.forEach(function(e){
         sticky.style.transform = e.isIntersecting ? 'translateY(100%)' : 'translateY(0)';
       });
-    }, { threshold: 0.1 });
-    obs.observe(hero);
+    }, { threshold: 0.1 }).observe(hero);
   }
 
-  // Propaga UTM da URL para os CTAs de checkout + dispara InitiateCheckout no Pixel
+  // UTM helper + evento InitiateCheckout
+  var CHECKOUT = 'https://pay.hotmart.com/V106748066F?off=vd4oylpx';
   var params = new URLSearchParams(window.location.search);
   var utms = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+  function withUtms(str){
+    try{ var u = new URL(str); utms.forEach(function(k){ if(params.get(k)) u.searchParams.set(k, params.get(k)); }); return u.toString(); }
+    catch(e){ return str; }
+  }
+  function fireIC(){ if(window.fbq){ fbq('track','InitiateCheckout'); } }
+
+  // CTAs fixos de checkout (bloco de preço + CTA final): sempre vão ao checkout, com UTM + evento
   document.querySelectorAll('a[data-cta]').forEach(function(a){
-    try{
-      var url = new URL(a.href);
-      if(url.protocol === 'https:' || url.protocol === 'http:'){
-        utms.forEach(function(k){ if(params.get(k)) url.searchParams.set(k, params.get(k)); });
-        a.href = url.toString();
-      }
-    }catch(e){}
-    a.addEventListener('click', function(){ if(window.fbq){ fbq('track','InitiateCheckout'); } });
+    a.href = withUtms(a.href);
+    a.addEventListener('click', fireIC);
   });
+
+  // Sticky dinâmico: rola para "O que você recebe" enquanto acima dela; vira checkout ao alcançá-la
+  var offer = document.getElementById('recebe');
+  var slink = sticky ? sticky.querySelector('a') : null;
+  var reached = false;
+  function applySticky(){ if(slink){ slink.setAttribute('href', reached ? withUtms(CHECKOUT) : '#recebe'); } }
+  if(slink){
+    slink.addEventListener('click', function(){ if(reached){ fireIC(); } });
+    applySticky();
+    if(offer && 'IntersectionObserver' in window){
+      new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          reached = e.isIntersecting || e.boundingClientRect.top < 0;
+          applySticky();
+        });
+      }, { threshold: 0 }).observe(offer);
+    }
+  }
 })();
 </script>
 </body>
