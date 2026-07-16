@@ -137,7 +137,7 @@
 
   /* bio placeholder */
   .bio{display:grid; grid-template-columns:140px 1fr; gap:24px; align-items:center;
-    background:var(--white); border:2px dashed #C9BFA5; border-radius:20px; padding:24px; max-width:720px; margin:0 auto;}
+    background:var(--white); border:1px solid #EFE7D2; box-shadow:var(--shadow-sm); border-radius:20px; padding:24px; max-width:720px; margin:0 auto;}
   .bio .photo{width:140px; height:140px; border-radius:16px; background:var(--cream-2);
     display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:.85rem; text-align:center; object-fit:cover;}
 
@@ -190,6 +190,13 @@
     .wrap{padding:0 20px;}
   }
 </style>
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1379844697288228');fbq('track','PageView');fbq('track','ViewContent');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1379844697288228&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
 </head>
 <body>
 
@@ -207,7 +214,7 @@
         <h1>Minhas Primeiras Palavras com&nbsp;Deus</h1>
         <p class="sub">O primeiro inglês do seu filho pode vir da Palavra de Deus. Sem telas, e mesmo que você não fale o&nbsp;idioma.</p>
         <div class="hero-cta-row">
-          <a class="btn btn-lg" href="#checkout" data-cta data-cta-primary>Quero começar hoje por R$&nbsp;67</a>
+          <a class="btn btn-lg" href="https://pay.hotmart.com/V106748066F?off=vd4oylpx" data-cta data-cta-primary>Quero começar hoje por R$&nbsp;67</a>
           <span class="hero-note">Pagamento único · 7 dias de garantia</span>
         </div>
       </div>
@@ -269,7 +276,7 @@
       <div class="from">de R$ 147</div>
       <div class="now">R$ 67</div>
       <div class="tag">pagamento único · acesso imediato</div>
-      <a class="btn btn-lg" href="#checkout" data-cta>Quero o kit completo</a>
+      <a class="btn btn-lg" href="https://pay.hotmart.com/V106748066F?off=vd4oylpx" data-cta>Quero o kit completo</a>
     </div>
   </div>
 </section>
@@ -307,7 +314,7 @@
     <div class="center"><div class="kicker">Quem criou</div><h2>Teacher Sandra</h2></div>
     <div class="bio">
       <img class="photo" src="assets/images/teacher-sandra.webp" width="140" height="140" alt="Teacher Sandra" loading="lazy">
-      <div><p style="margin:0;">[BIO CURTA DA TEACHER SANDRA — formação, missão e por que criou o material. Substituir. Seção opcional: remover se não houver conteúdo.]</p></div>
+      <div><p style="margin:0;">Sandra Helena Borchardt acredita que a educação transforma vidas. Professora de inglês há mais de 25 anos, especialista em ensino e apaixonada por desenvolver pessoas, dedica sua carreira a criar materiais que unem conhecimento, propósito e valores cristãos. Por meio de cursos, eBooks e recursos educacionais em português, inglês e espanhol, sua missão é tornar o aprendizado acessível, inspirar famílias e capacitar pessoas a alcançarem novas oportunidades, sempre com excelência, fé e dedicação.</p></div>
     </div>
   </div>
 </section>
@@ -355,9 +362,8 @@
   <div class="wrap" style="max-width:680px;">
     <h2>Comece hoje esse tempo com seu filho</h2>
     <p>Seu filho tem esse tempo agora, e ele passa rápido. Comece hoje a preencher esses primeiros anos com inglês, valores e um momento de vocês.</p>
-    <p style="margin-top:24px;"><a class="btn btn-lg" href="#checkout" data-cta>Quero o material completo por R$ 67</a></p>
+    <p style="margin-top:24px;"><a class="btn btn-lg" href="https://pay.hotmart.com/V106748066F?off=vd4oylpx" data-cta>Quero o material completo por R$ 67</a></p>
     <p class="reforco">Pagamento único · Acesso imediato · 7 dias de&nbsp;garantia</p>
-    <p class="reforco">[LINK DE CHECKOUT PENDENTE — substituir #checkout pelo link real do Kiwify/Hotmart]</p>
   </div>
 </section>
 
@@ -366,7 +372,7 @@
 </footer>
 
 <!-- sticky mobile cta -->
-<div id="sticky"><a href="#checkout" data-cta>Quero começar — R$ 67</a></div>
+<div id="sticky"><a href="https://pay.hotmart.com/V106748066F?off=vd4oylpx" data-cta>Quero começar — R$ 67</a></div>
 
 <script>
 (function(){
@@ -394,25 +400,19 @@
     obs.observe(hero);
   }
 
-  // UTM propagation to all CTAs
+  // Propaga UTM da URL para os CTAs de checkout + dispara InitiateCheckout no Pixel
   var params = new URLSearchParams(window.location.search);
   var utms = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-  var hasUtm = utms.some(function(k){ return params.get(k); });
-  if(hasUtm){
-    document.querySelectorAll('a[data-cta]').forEach(function(a){
-      try{
-        var url = new URL(a.href, window.location.origin);
-        if(url.hash && !url.pathname.replace('/','')) { return; } // skip pure #anchors
-      }catch(e){}
-    });
-  }
-  // Note: CTAs currently point to #checkout (placeholder). When the real checkout
-  // URL is set, this block will append utm_* to it automatically.
-  window.__applyUtms = function(realUrl){
-    var u = new URL(realUrl);
-    utms.forEach(function(k){ if(params.get(k)) u.searchParams.set(k, params.get(k)); });
-    return u.toString();
-  };
+  document.querySelectorAll('a[data-cta]').forEach(function(a){
+    try{
+      var url = new URL(a.href);
+      if(url.protocol === 'https:' || url.protocol === 'http:'){
+        utms.forEach(function(k){ if(params.get(k)) url.searchParams.set(k, params.get(k)); });
+        a.href = url.toString();
+      }
+    }catch(e){}
+    a.addEventListener('click', function(){ if(window.fbq){ fbq('track','InitiateCheckout'); } });
+  });
 })();
 </script>
 </body>
