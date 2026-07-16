@@ -404,8 +404,17 @@ fbq('init','1379844697288228');fbq('track','PageView');fbq('track','ViewContent'
   var params = new URLSearchParams(window.location.search);
   var utms = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
   function withUtms(str){
-    try{ var u = new URL(str); utms.forEach(function(k){ if(params.get(k)) u.searchParams.set(k, params.get(k)); }); return u.toString(); }
-    catch(e){ return str; }
+    try{
+      var u = new URL(str);
+      utms.forEach(function(k){ if(params.get(k)) u.searchParams.set(k, params.get(k)); });
+      // Hotmart sck: string unica na ordem source|medium|campaign|term|content
+      var sck = [
+        params.get('utm_source')||'', params.get('utm_medium')||'', params.get('utm_campaign')||'',
+        params.get('utm_term')||'', params.get('utm_content')||''
+      ].join('|');
+      if(sck.replace(/\|/g,'')){ u.searchParams.set('sck', sck); }
+      return u.toString();
+    }catch(e){ return str; }
   }
   function fireIC(){ if(window.fbq){ fbq('track','InitiateCheckout'); } }
 
