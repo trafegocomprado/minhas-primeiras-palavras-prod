@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Minhas Primeiras Palavras com Deus — inglês bíblico sem telas">
 <meta property="og:description" content="Seu filho aprende as primeiras palavras em inglês pela Palavra de Deus, colorindo e brincando. Livro de 127 páginas + 4 bônus + áudios por R$ 67.">
-<meta property="og:image" content="assets/images/og-cover.webp">
+<meta property="og:image" content="assets/images/mockup-kit.webp">
 <meta property="og:url" content="https://minhas-primeiras-palavras-mainstream.pages.dev/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -75,10 +75,8 @@
   .hero p.sub{font-size:1.2rem; color:var(--ink); max-width:34ch;}
   .hero-cta-row{display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:26px;}
   .hero-note{font-size:.9rem; color:var(--muted);}
-  .hero-visual{position:relative; aspect-ratio:4/3; border-radius:var(--radius);
-    background:radial-gradient(120% 120% at 70% 20%, #EAF6FC 0%, var(--sky) 100%);
-    box-shadow:var(--shadow); display:flex; align-items:center; justify-content:center;
-    text-align:center; padding:24px; overflow:hidden;}
+  .hero-visual{position:relative; border-radius:var(--radius); overflow:hidden;}
+  .hero-visual img{width:100%; height:auto; display:block; border-radius:var(--radius); box-shadow:var(--shadow);}
   .hero-visual .ph{color:var(--forest); font-weight:700;}
   .hero-visual .ph small{display:block; font-weight:600; color:var(--forest-2); margin-top:8px; font-size:.82rem;}
 
@@ -141,7 +139,7 @@
   .bio{display:grid; grid-template-columns:140px 1fr; gap:24px; align-items:center;
     background:var(--white); border:2px dashed #C9BFA5; border-radius:20px; padding:24px; max-width:720px; margin:0 auto;}
   .bio .photo{width:140px; height:140px; border-radius:16px; background:var(--cream-2);
-    display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:.85rem; text-align:center;}
+    display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:.85rem; text-align:center; object-fit:cover;}
 
   /* guarantee */
   .guarantee{display:grid; grid-template-columns:96px 1fr; gap:22px; align-items:center;
@@ -213,8 +211,8 @@
           <span class="hero-note">Pagamento único · 7 dias de garantia</span>
         </div>
       </div>
-      <div class="hero-visual" aria-label="Imagem do produto (placeholder)">
-        <div class="ph">[IMAGEM HERO / MOCKUP DO KIT]<small>5 PDFs + áudios — substituir por mockup real</small></div>
+      <div class="hero-visual">
+        <img src="assets/images/mockup-kit.webp" width="1565" height="1005" alt="Kit Minhas Primeiras Palavras com Deus: livro bíblico em inglês no tablet e no celular, com páginas de atividades para imprimir" fetchpriority="high">
       </div>
     </div>
 
@@ -308,7 +306,7 @@
   <div class="wrap">
     <div class="center"><div class="kicker">Quem criou</div><h2>Teacher Sandra</h2></div>
     <div class="bio">
-      <div class="photo">[FOTO<br>TEACHER<br>SANDRA]</div>
+      <img class="photo" src="assets/images/teacher-sandra.webp" width="140" height="140" alt="Teacher Sandra" loading="lazy">
       <div><p style="margin:0;">[BIO CURTA DA TEACHER SANDRA — formação, missão e por que criou o material. Substituir. Seção opcional: remover se não houver conteúdo.]</p></div>
     </div>
   </div>
